@@ -3,10 +3,11 @@ package gabriel.testebackend.todolist.services;
 import gabriel.testebackend.todolist.Dtos.ActivityDto;
 import gabriel.testebackend.todolist.enities.Activity;
 import gabriel.testebackend.todolist.repositories.ActivityRepository;
-import jakarta.validation.Valid;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ActivityService {
@@ -23,6 +24,11 @@ public class ActivityService {
     }
 
     public List<Activity> getAllActivitis(){
-        return activityRepository.findAll();
+        Sort sort = Sort.by("name").ascending();
+        return activityRepository.findAll(sort);
+    }
+
+    public Optional<Activity> getActivityById(Long id) {
+        return Optional.ofNullable(activityRepository.findAllById(id));
     }
 }

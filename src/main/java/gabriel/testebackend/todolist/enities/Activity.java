@@ -2,10 +2,7 @@ package gabriel.testebackend.todolist.enities;
 
 import gabriel.testebackend.todolist.Dtos.ActivityDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "activities")
