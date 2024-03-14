@@ -47,11 +47,24 @@ public class ActivityService {
     public void updateActivytyDoneField(Long id, Boolean done) {
         Optional<Activity> activity = activityRepository.findById(id);
         if (activity.isPresent()) {
-            Activity updateActivity = activity.get();
-            updateActivity.setDone(done);
-            activityRepository.save(updateActivity);
+            Activity updateDoneFieldActivity = activity.get();
+            updateDoneFieldActivity.setDone(done);
+            activityRepository.save(updateDoneFieldActivity);
         } else {
             throw new ActivityNotFoundException("Atividade não encontrada para atualizar o campo 'done'");
+        }
+    }
+
+    public void updateActivityFields(Long id, ActivityDto activityDto) {
+        Optional<Activity> activity = activityRepository.findById(id);
+        if (activity.isPresent()) {
+            Activity updateActivityFields = activity.get();
+            updateActivityFields.setName(activityDto.name());
+            updateActivityFields.setDescription(activityDto.description());
+            updateActivityFields.setPriorityEnum(activityDto.priorityEnum());
+            activityRepository.save(updateActivityFields);
+        } else {
+            throw new ActivityNotFoundException("Atividade não encontrada para atualizar os campos 'nome', 'descrição' e 'prioridade'");
         }
     }
 }
