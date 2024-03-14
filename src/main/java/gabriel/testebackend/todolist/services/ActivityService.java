@@ -28,7 +28,7 @@ public class ActivityService {
         return activityRepository.findAll(sort);
     }
 
-    public Optional<Activity> getActivityById(Long id) {
-        return Optional.ofNullable(activityRepository.findAllById(id));
+    public Optional<Activity> findActivityByName(String name) {
+        return Optional.ofNullable(activityRepository.findActivityByName(name));
     }
 }

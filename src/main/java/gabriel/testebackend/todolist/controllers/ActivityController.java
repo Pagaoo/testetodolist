@@ -39,10 +39,9 @@ public class ActivityController {
         return activityService.getAllActivitis();
     }
 
-
-    @GetMapping("/{id}")
-    public Optional<Activity> getActivityById(@PathVariable("id") Long id) {
-        logger.info("[ActivityController] Searching activity by id");
-        return Optional.ofNullable(activityService.getActivityById(id).orElseThrow(() -> new ActivityNotFoundException("Atividade não encotrada")));
+    @GetMapping("/{name}")
+    public Optional<Activity> getActivityById(@PathVariable("name") String name) {
+        logger.info("[ActivityController] Searching activity by name");
+        return Optional.ofNullable(activityService.findActivityByName(name).orElseThrow(() -> new ActivityNotFoundException("Atividade não encontrada")));
     }
 }
