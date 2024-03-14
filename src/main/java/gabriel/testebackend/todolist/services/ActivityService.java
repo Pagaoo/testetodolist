@@ -43,4 +43,15 @@ public class ActivityService {
         }
         activityRepository.deleteById(id);
     }
+
+    public void updateActivytyDoneField(Long id, Boolean done) {
+        Optional<Activity> activity = activityRepository.findById(id);
+        if (activity.isPresent()) {
+            Activity updateActivity = activity.get();
+            updateActivity.setDone(done);
+            activityRepository.save(updateActivity);
+        } else {
+            throw new ActivityNotFoundException("Atividade não encontrada para atualizar o campo 'done'");
+        }
+    }
 }

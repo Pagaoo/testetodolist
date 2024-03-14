@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,10 +44,15 @@ public class ActivityController {
         return Optional.ofNullable(activityService.findActivityByName(name).orElseThrow(() -> new ActivityNotFoundException("Atividade não encontrada")));
     }
 
-
     @DeleteMapping("/{id}")
     public void deleteActivityById(@PathVariable("id") Long id) {
         logger.info("[ActivityController] Deleting activity using the id");
         activityService.deleteActivityById(id);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<String> updateDoneField(@PathVariable Long id, @RequestParam("done") Boolean done) {
+        activityService.updateActivytyDoneField(id, done);
+        return ResponseEntity.ok("Campo 'done' atualizado com sucesso");
     }
 }
