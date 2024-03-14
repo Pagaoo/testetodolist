@@ -2,7 +2,10 @@ package gabriel.testebackend.todolist.services;
 
 import gabriel.testebackend.todolist.Dtos.ActivityDto;
 import gabriel.testebackend.todolist.enities.Activity;
+import gabriel.testebackend.todolist.exceptions.ActivityNotFoundException;
 import gabriel.testebackend.todolist.repositories.ActivityRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +15,7 @@ import java.util.Optional;
 @Service
 public class ActivityService {
 
+    private final Logger logger = LoggerFactory.getLogger(ActivityService.class);
     public final ActivityRepository activityRepository;
 
     public ActivityService(ActivityRepository activityRepository) {
@@ -30,5 +34,13 @@ public class ActivityService {
 
     public Optional<Activity> findActivityByName(String name) {
         return Optional.ofNullable(activityRepository.findActivityByName(name));
+    }
+
+    public void deleteActivityById(Long id) {
+        if (!activityRepository.existsById(id)) {
+            logger.error("Atividade de id: {} não encontrada", id);
+            throw new ActivityNotFoundException("Atividade não encontrada para a exclusão");
+        }
+        activityRepository.deleteById(id);
     }
 }
