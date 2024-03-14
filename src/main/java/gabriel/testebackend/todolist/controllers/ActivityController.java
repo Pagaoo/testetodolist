@@ -55,4 +55,10 @@ public class ActivityController {
         activityService.updateActivytyDoneField(id, done);
         return ResponseEntity.ok("Campo 'done' atualizado com sucesso");
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateActivityFields(@PathVariable Long id, @RequestBody ActivityDto activityDto) {
+        activityService.updateActivityFields(id, activityDto);
+        return ResponseEntity.ok("Campos atualizados com sucesso");
+    }
 }
