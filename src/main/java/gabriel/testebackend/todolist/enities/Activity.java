@@ -1,5 +1,6 @@
 package gabriel.testebackend.todolist.enities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import gabriel.testebackend.todolist.Dtos.ActivityDto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,6 +17,7 @@ public class Activity {
     Long id;
     String name;
     String description;
+    @JsonIgnoreProperties(value = "put")
     Boolean done;
     PriorityEnum priorityEnum = PriorityEnum.LOW;
 
