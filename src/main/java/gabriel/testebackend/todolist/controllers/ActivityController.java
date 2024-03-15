@@ -52,12 +52,14 @@ public class ActivityController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<String> updateDoneField(@PathVariable Long id, @RequestParam("done") Boolean done) {
+        logger.info("[updateDoneField] Updating done field to false or true");
         activityService.updateActivytyDoneField(id, done);
         return ResponseEntity.ok("Campo 'done' atualizado com sucesso");
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateActivityFields(@PathVariable Long id, @RequestBody ActivityDto activityDto) {
+        logger.info("[updateActivityFields] Updating fields from the activity");
         activityService.updateActivityFields(id, activityDto);
         return ResponseEntity.ok("Campos atualizados com sucesso");
     }

@@ -23,39 +23,46 @@ public class ActivityService {
     }
 
     public Activity createActivity(ActivityDto activityDto) {
+        logger.info("[createActivity] Creating activity funciton");
         Activity newActivity = new Activity(activityDto);
         return activityRepository.save(newActivity);
     }
 
     public List<Activity> getAllActivitis(){
+        logger.info("[getAllActivitis] Searching all activities and then sorting by name function");
         Sort sort = Sort.by("name").ascending();
         return activityRepository.findAll(sort);
     }
 
     public Optional<Activity> findActivityByName(String name) {
+        logger.info("[findActivityByName] Searching activity by name function");
         return Optional.ofNullable(activityRepository.findActivityByName(name));
     }
 
     public void deleteActivityById(Long id) {
+        logger.info("[deleteActivityById] Searching activity to delete function");
         if (!activityRepository.existsById(id)) {
-            logger.error("Atividade de id: {} não encontrada", id);
+            logger.info("Atividade de id: {} não encontrada", id);
             throw new ActivityNotFoundException("Atividade não encontrada para a exclusão");
         }
         activityRepository.deleteById(id);
     }
 
     public void updateActivytyDoneField(Long id, Boolean done) {
+        logger.info("[updateActivytyDoneField] Updating done field function");
         Optional<Activity> activity = activityRepository.findById(id);
         if (activity.isPresent()) {
             Activity updateDoneFieldActivity = activity.get();
             updateDoneFieldActivity.setDone(done);
             activityRepository.save(updateDoneFieldActivity);
         } else {
+            logger.info("Atividade de id: {} não encontrada", id);
             throw new ActivityNotFoundException("Atividade não encontrada para atualizar o campo 'done'");
         }
     }
 
     public void updateActivityFields(Long id, ActivityDto activityDto) {
+        logger.info("[updateActivityFields] Updating activity fields function");
         Optional<Activity> activity = activityRepository.findById(id);
         if (activity.isPresent()) {
             Activity updateActivityFields = activity.get();
@@ -64,6 +71,7 @@ public class ActivityService {
             updateActivityFields.setPriorityEnum(activityDto.priorityEnum());
             activityRepository.save(updateActivityFields);
         } else {
+            logger.info("Atividade de id: {} não encontrada", id);
             throw new ActivityNotFoundException("Atividade não encontrada para atualizar os campos 'nome', 'descrição' e 'prioridade'");
         }
     }
